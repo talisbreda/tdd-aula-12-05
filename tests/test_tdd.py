@@ -27,6 +27,18 @@ class TestesTDD(unittest.TestCase):
 
         self.assertEqual(funcionario.nome, nome_funcionario)
     
+    # Inclusão de funcionário na empresa
+    def test_deve_incluir_funcionario(self):
+        nome = "Empresa A"
+        empresa = Empresa(nome)
+        nome_funcionario = "Jorge"
+        funcionario = Funcionario(nome_funcionario)
+
+        empresa.incluir_funcionario(funcionario)
+
+        self.assertEqual(empresa.funcionarios[0].nome, funcionario.nome)
+
+
 
 if __name__ == '__main__':
     unittest.main()
