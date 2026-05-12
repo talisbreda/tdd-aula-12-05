@@ -7,6 +7,10 @@ class Empresa:
     def incluir_funcionario(self, funcionario):
         self.funcionarios.append(funcionario)
 
+    def incluir_funcionarios(self, funcionarios):
+        for f in funcionarios:
+            self.incluir_funcionario(f)
+
     def incluir_projeto(self, projeto):
         self.projetos.append(projeto)
     
