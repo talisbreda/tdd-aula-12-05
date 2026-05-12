@@ -79,5 +79,16 @@ class TestesTDD(unittest.TestCase):
         self.assertEqual(projeto.funcionarios[0].nome, funcionario.nome)
         self.assertEqual(empresa.projetos[0].funcionarios[0].nome, funcionario.nome)
 
+    # Inclusão de funcionário fora da empresa em projeto
+    def test_nao_deve_incluir_funcionario_fora_da_empresa_em_projeto(self):
+        empresa, funcionario, projeto = self.criar_objetos()
+        nome_funcionario2 = "Pedro"
+        funcionario2 = Funcionario(nome_funcionario2)
+
+        empresa.incluir_funcionario_em_projeto(funcionario2, projeto)
+
+        self.assertTrue(len(projeto.funcionarios) == 0)
+        self.assertTrue(len(empresa.projetos[0].funcionarios) == 0)
+
 if __name__ == '__main__':
     unittest.main()
