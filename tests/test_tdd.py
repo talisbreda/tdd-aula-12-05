@@ -11,6 +11,19 @@ import unittest
 
 class TestesTDD(unittest.TestCase):
 
+
+    def criar_objetos(self):
+        nome = "Empresa A"
+        empresa = Empresa(nome)
+        nome_funcionario = "Jorge"
+        funcionario = Funcionario(nome_funcionario)
+        nome_projeto = "Projeto 1"
+        projeto = Projeto(nome_projeto)
+        empresa.incluir_funcionario(funcionario)
+        empresa.incluir_projeto(projeto)
+
+        return empresa, funcionario, projeto
+
     # Criação de empresa
     def test_deve_criar_empresa(self):
         nome = "Empresa A"
@@ -57,6 +70,14 @@ class TestesTDD(unittest.TestCase):
 
         self.assertEqual(empresa.projetos[0].nome, projeto.nome)
 
+    # Inclusão de funcionário em projeto
+    def test_deve_incluir_funcionario_em_projeto(self):
+        empresa, funcionario, projeto = self.criar_objetos()
+
+        empresa.incluir_funcionario_em_projeto(funcionario, projeto)
+
+        self.assertEqual(projeto.funcionarios[0].nome, funcionario.nome)
+        self.assertEqual(empresa.projetos[0].funcionarios[0].nome, funcionario.nome)
 
 if __name__ == '__main__':
     unittest.main()
