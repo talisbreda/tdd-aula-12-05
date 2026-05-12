@@ -45,6 +45,18 @@ class TestesTDD(unittest.TestCase):
         projeto = Projeto(nome_projeto)
 
         self.assertEqual(projeto.nome, nome_projeto)
+    
+    # Inclusão de projeto na empresa
+    def test_deve_incluir_projeto(self):
+        nome = "Empresa A"
+        empresa = Empresa(nome)
+        nome_projeto = "Projeto 1"
+        projeto = Projeto(nome_projeto)
+
+        empresa.incluir_projeto(projeto)
+
+        self.assertEqual(empresa.projetos[0].nome, projeto.nome)
+
 
 if __name__ == '__main__':
     unittest.main()
