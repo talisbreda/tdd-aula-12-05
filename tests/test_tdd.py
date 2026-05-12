@@ -124,5 +124,25 @@ class TestesTDD(unittest.TestCase):
         self.assertTrue(funcionario2 in empresa.funcionarios)
         self.assertTrue(funcionario3 in empresa.funcionarios)
 
+    # Inclusão de vários projetos na empresa
+    def test_deve_incluir_varios_projetos_na_empresa(self):
+        empresa = self.criar_empresa()
+        nome_projeto1 = "Pedro"
+        projeto1 = Projeto(nome_projeto1)
+        nome_projeto2 = "João"
+        projeto2 = Projeto(nome_projeto2)
+        nome_projeto3 = "Carlos"
+        projeto3 = Projeto(nome_projeto3)
+        projetos = [projeto1, projeto2, projeto3]
+
+        empresa.incluir_projetos(projetos)
+
+        self.assertTrue(len(empresa.projetos) == 3)
+        self.assertTrue(projeto1 in empresa.projetos)
+        self.assertTrue(projeto2 in empresa.projetos)
+        self.assertTrue(projeto3 in empresa.projetos)
+
+    
+
 if __name__ == '__main__':
     unittest.main()
