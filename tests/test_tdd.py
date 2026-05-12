@@ -38,7 +38,13 @@ class TestesTDD(unittest.TestCase):
 
         self.assertEqual(empresa.funcionarios[0].nome, funcionario.nome)
 
+    # Criação de projeto
+    def test_deve_criar_projeto(self):
+        nome_projeto = "Projeto 1"
 
+        projeto = Projeto(nome_projeto)
+
+        self.assertEqual(projeto.nome, nome_projeto)
 
 if __name__ == '__main__':
     unittest.main()
