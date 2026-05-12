@@ -13,6 +13,10 @@ class Empresa:
 
     def incluir_projeto(self, projeto):
         self.projetos.append(projeto)
+
+    def incluir_projetos(self, projetos):
+        for p in projetos:
+            self.incluir_projeto(p)
     
     def incluir_funcionario_em_projeto(self, funcionario, projeto):
         if funcionario in self.funcionarios and projeto in self.projetos:
