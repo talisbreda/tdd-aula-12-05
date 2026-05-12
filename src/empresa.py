@@ -21,3 +21,7 @@ class Empresa:
     def incluir_funcionario_em_projeto(self, funcionario, projeto):
         if funcionario in self.funcionarios and projeto in self.projetos:
             projeto.incluir_funcionario(funcionario)
+
+    def incluir_funcionario_em_projetos(self, funcionario, projetos):
+        for p in projetos:
+            self.incluir_funcionario_em_projeto(funcionario, p) 
