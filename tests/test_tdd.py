@@ -90,5 +90,16 @@ class TestesTDD(unittest.TestCase):
         self.assertTrue(len(projeto.funcionarios) == 0)
         self.assertTrue(len(empresa.projetos[0].funcionarios) == 0)
 
+    # Inclusão de funcionário fora da empresa em projeto
+    def test_nao_deve_incluir_funcionario_em_projeto_fora_da_empresa(self):
+        empresa, funcionario, projeto = self.criar_objetos()
+        nome_projeto2 = "projeto 2"
+        projeto2 = Projeto(nome_projeto2)
+
+        empresa.incluir_funcionario_em_projeto(funcionario, projeto2)
+
+        self.assertTrue(len(projeto2.funcionarios) == 0)
+        self.assertTrue(projeto2 not in empresa.projetos)
+
 if __name__ == '__main__':
     unittest.main()
