@@ -155,5 +155,14 @@ class TestesTDD(unittest.TestCase):
         self.assertTrue(funcionario in projeto.funcionarios)
         self.assertTrue(funcionario in projeto2.funcionarios)
 
+    # Inclusão de funcionário repetido na empresa
+    def test_nao_deve_incluir_funcionario_repetido(self):
+        empresa, funcionario, projeto = self.criar_objetos()
+
+        empresa.incluir_funcionario(funcionario)
+        
+        self.assertTrue(len(empresa.funcionarios) == 1)
+        self.assertTrue(funcionario in empresa.funcionarios)
+
 if __name__ == '__main__':
     unittest.main()
