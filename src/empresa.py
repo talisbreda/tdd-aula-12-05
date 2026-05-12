@@ -5,7 +5,8 @@ class Empresa:
         self.projetos = []
 
     def incluir_funcionario(self, funcionario):
-        self.funcionarios.append(funcionario)
+        if funcionario not in self.funcionarios:
+            self.funcionarios.append(funcionario)
 
     def incluir_funcionarios(self, funcionarios):
         for f in funcionarios:
