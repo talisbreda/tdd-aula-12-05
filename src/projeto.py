@@ -4,4 +4,5 @@ class Projeto:
         self.funcionarios = []
 
     def incluir_funcionario(self, funcionario):
-        self.funcionarios.append(funcionario)
+        if funcionario not in self.funcionarios:
+            self.funcionarios.append(funcionario)
