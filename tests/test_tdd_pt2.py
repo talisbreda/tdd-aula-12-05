@@ -43,7 +43,7 @@ class TestesTDD(unittest.TestCase):
         return empresa
 
     # Criação de ocorrencia
-    def test_cria_ocorrência(self):
+    def test_cria_ocorrencia(self):
         empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
 
         ocorrencia = projeto.cria_ocorrencia("bugTeste")
@@ -51,6 +51,15 @@ class TestesTDD(unittest.TestCase):
         self.assertTrue( ocorrencia in projeto.ocorrencias)
     
     
+    # Atribui funcionario a ocorrência
+    def test_atribui_funcionario_ocorrencia(self):
+        empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
+        ocorrencia = projeto.cria_ocorrencia("bugTeste")
+
+        ocorrencia.atribuir_funcionario(funcionario)
+
+        self.assertEqual(ocorrencia.funcionario, funcionario)
+
 
 if __name__ == '__main__':
     unittest.main()
