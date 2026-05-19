@@ -108,6 +108,13 @@ class TestesTDD(unittest.TestCase):
 
         self.assertTrue(ocorrencia.estado == 'ABERTO')
 
+    def test_concluir_ocorrencia(self):
+        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
+
+        ocorrencia.fechar()
+
+        self.assertTrue(ocorrencia.estado == 'FECHADO')
+
 
 if __name__ == '__main__':
     unittest.main()
