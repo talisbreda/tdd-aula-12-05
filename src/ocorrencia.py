@@ -21,6 +21,7 @@ class Ocorrencia:
         if self.estado == EstadoEnum.FECHADO:
             raise Exception("Ocorrência já fechada")
         self.estado = EstadoEnum.FECHADO
+        self.funcionario.remover_de_ocorrencia(self)
         
 
     def mudar_prioridade(self, prioridade):
@@ -37,3 +38,6 @@ class PrioridadeEnum(Enum):
     ALTA = 3
     MEDIA = 2
     BAIXA = 1
+
+class LimiteOcorrenciasPorFuncionarioAtingidoException(Exception):
+    pass

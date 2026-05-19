@@ -1,4 +1,5 @@
-from ocorrencia import Ocorrencia
+from funcionario import Funcionario
+from ocorrencia import Ocorrencia, LimiteOcorrenciasPorFuncionarioAtingidoException
 
 class Projeto:
     def __init__(self, nome):
@@ -17,6 +18,9 @@ class Projeto:
 
         return ocorrencia
     
-    def atribuir_funcionario_a_ocorrencia(self, funcionario, ocorrencia: Ocorrencia):
+    def atribuir_funcionario_a_ocorrencia(self, funcionario: Funcionario, ocorrencia: Ocorrencia):
         if funcionario in self.funcionarios:
+            if len(funcionario.ocorrencias) == 10:
+                raise LimiteOcorrenciasPorFuncionarioAtingidoException
             ocorrencia.atribuir_funcionario(funcionario)
+            funcionario.adicionar_em_ocorrencia(ocorrencia)
