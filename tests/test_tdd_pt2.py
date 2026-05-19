@@ -60,6 +60,14 @@ class TestesTDD(unittest.TestCase):
 
         self.assertEqual(ocorrencia.funcionario, funcionario)
 
+    def test_atribui_funcionario_fora_do_projeto_em_ocorrencia(self):
+        empresa, funcionario, projeto = self.criar_objetos()
+        ocorrencia = projeto.cria_ocorrencia("bugTeste")
+
+        projeto.atribuir_funcionario_a_ocorrencia(funcionario, ocorrencia)
+
+        self.assertNotEqual(ocorrencia.funcionario, funcionario)
+
 
 if __name__ == '__main__':
     unittest.main()
