@@ -144,6 +144,13 @@ class TestesTDD(unittest.TestCase):
 
         self.assertNotEqual(ocorrencia.funcionario, funcionarioPedro)
 
+    def test_concluir_ocorrencia_ja_fechada(self):
+        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
+        ocorrencia.fechar()
+
+        with self.assertRaises(Exception):
+            ocorrencia.fechar()
+
 
 if __name__ == '__main__':
     unittest.main()
