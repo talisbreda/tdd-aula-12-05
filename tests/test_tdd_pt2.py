@@ -116,6 +116,14 @@ class TestesTDD(unittest.TestCase):
 
         self.assertTrue(ocorrencia.estado == EstadoEnum.FECHADO)
 
+    def test_altera_prioridade_ocorrencia_aberta(self):
+        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
+        nova_prioridade = 3
+
+        ocorrencia.mudar_prioridade(nova_prioridade)
+
+        self.assertEqual(ocorrencia.prioridade, nova_prioridade)
+
 
 if __name__ == '__main__':
     unittest.main()
