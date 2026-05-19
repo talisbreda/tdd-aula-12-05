@@ -6,6 +6,8 @@ class Ocorrencia:
         self.funcionario = None
         self.id = self.incrementa_contador()
         self.estado = EstadoEnum.ABERTO
+        self.resumo = ""
+        self.prioridade = PrioridadeEnum.BAIXA
 
     def incrementa_contador(contador):
         Ocorrencia.id += 1
@@ -17,8 +19,17 @@ class Ocorrencia:
     def fechar(self):
         self.estado = EstadoEnum.FECHADO
 
+    def mudar_prioridade(self, prioridade):
+        if prioridade in PrioridadeEnum:
+            self.prioridade = prioridade
+
 from enum import Enum
 
 class EstadoEnum(Enum):
     ABERTO = 'ABERTO',
     FECHADO = 'FECHADO'
+
+class PrioridadeEnum(Enum):
+    ALTA = 3
+    MEDIA = 2
+    BAIXA = 1
