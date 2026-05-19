@@ -37,6 +37,22 @@ class TestesTDD(unittest.TestCase):
 
         return empresa, funcionario, projeto
     
+    def criar_objetos_ocorrencia(self):
+        nome = "Empresa A"
+        empresa = Empresa(nome)
+        nome_funcionario = "Jorge"
+        funcionario = Funcionario(nome_funcionario)
+        nome_projeto = "Projeto 1"
+        projeto = Projeto(nome_projeto)
+        empresa.incluir_funcionario(funcionario)
+        empresa.incluir_projeto(projeto)
+        empresa.incluir_funcionario_em_projeto(funcionario, projeto)
+        ocorrencia = projeto.cria_ocorrencia("bugTeste")
+        projeto.atribuir_funcionario_a_ocorrencia(funcionario, ocorrencia)
+
+        return empresa, funcionario, projeto, ocorrencia
+    
+    
     def criar_empresa(self):
         nome = "Empresa A"
         empresa = Empresa(nome)
@@ -87,7 +103,11 @@ class TestesTDD(unittest.TestCase):
 
         self.assertNotEqual(ocorrenciaBug.id, ocorrenciaTarefa.id)
 
-    
+    def test_ocorrencia_aberta(self):
+        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
+
+        self.assertTrue(ocorrencia.estado == 'ABERTO')
+
 
 if __name__ == '__main__':
     unittest.main()
