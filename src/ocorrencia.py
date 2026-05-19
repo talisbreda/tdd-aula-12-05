@@ -14,7 +14,8 @@ class Ocorrencia:
         return Ocorrencia.id
 
     def atribuir_funcionario(self, funcionario):
-        self.funcionario = funcionario
+        if self.estado == EstadoEnum.ABERTO:
+            self.funcionario = funcionario
 
     def fechar(self):
         self.estado = EstadoEnum.FECHADO
