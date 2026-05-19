@@ -20,7 +20,7 @@ class Ocorrencia:
         self.estado = EstadoEnum.FECHADO
 
     def mudar_prioridade(self, prioridade):
-        if prioridade in PrioridadeEnum:
+        if prioridade in PrioridadeEnum and self.estado == EstadoEnum.ABERTO:
             self.prioridade = prioridade
 
 from enum import Enum
