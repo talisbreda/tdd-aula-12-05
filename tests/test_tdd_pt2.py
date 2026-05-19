@@ -68,6 +68,18 @@ class TestesTDD(unittest.TestCase):
 
         self.assertNotEqual(ocorrencia.funcionario, funcionario)
 
+    def test_ultimo_funcionario_ocorrencia(self):
+        empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
+        funcionarioPedro = Funcionario("Pedro")
+        empresa.incluir_funcionario(funcionarioPedro)
+        projeto.incluir_funcionario(funcionarioPedro)
+        ocorrencia = projeto.cria_ocorrencia("bugTeste")
+        ocorrencia.atribuir_funcionario(funcionario)
+        
+        ocorrencia.atribuir_funcionario(funcionarioPedro)
+
+        self.assertEqual(ocorrencia.funcionario, funcionarioPedro)
+
 
 if __name__ == '__main__':
     unittest.main()
