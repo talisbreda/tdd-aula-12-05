@@ -16,3 +16,7 @@ class Projeto:
         self.ocorrencias.append(ocorrencia)
 
         return ocorrencia
+    
+    def atribuir_funcionario_a_ocorrencia(self, funcionario, ocorrencia: Ocorrencia):
+        if funcionario in self.funcionarios:
+            ocorrencia.atribuir_funcionario(funcionario)
