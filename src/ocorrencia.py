@@ -5,7 +5,7 @@ class Ocorrencia:
         self.nome = nome
         self.funcionario = None
         self.id = self.incrementa_contador()
-        self.estado = 'ABERTO'
+        self.estado = EstadoEnum.ABERTO
 
     def incrementa_contador(contador):
         Ocorrencia.id += 1
@@ -13,6 +13,9 @@ class Ocorrencia:
 
     def atribuir_funcionario(self, funcionario):
         self.funcionario = funcionario
+
+    def fechar(self):
+        self.estado = EstadoEnum.FECHADO
 
 from enum import Enum
 

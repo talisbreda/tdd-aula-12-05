@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(_d), 'src'))
 from empresa import Empresa
 from funcionario import Funcionario
 from projeto import Projeto
+from ocorrencia import Ocorrencia, EstadoEnum
 import unittest
 
 class TestesTDD(unittest.TestCase):
@@ -106,14 +107,14 @@ class TestesTDD(unittest.TestCase):
     def test_ocorrencia_aberta(self):
         empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
 
-        self.assertTrue(ocorrencia.estado == 'ABERTO')
+        self.assertTrue(ocorrencia.estado == EstadoEnum.ABERTO)
 
     def test_concluir_ocorrencia(self):
         empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
 
         ocorrencia.fechar()
 
-        self.assertTrue(ocorrencia.estado == 'FECHADO')
+        self.assertTrue(ocorrencia.estado == EstadoEnum.FECHADO)
 
 
 if __name__ == '__main__':
