@@ -80,6 +80,14 @@ class TestesTDD(unittest.TestCase):
 
         self.assertEqual(ocorrencia.funcionario, funcionarioPedro)
 
+    def test_identificador_unico(self):
+        empresa, funcionario, projeto = self.criar_objetos()
+        ocorrenciaBug = projeto.cria_ocorrencia("bugTeste")
+        ocorrenciaTarefa = projeto.cria_ocorrencia("bugTeste")
+
+        self.assertNotEqual(ocorrenciaBug.id, ocorrenciaTarefa.id)
+
+    
 
 if __name__ == '__main__':
     unittest.main()
