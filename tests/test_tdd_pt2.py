@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(_d), 'src'))
 from empresa import Empresa
 from funcionario import Funcionario
 from projeto import Projeto
-from ocorrencia import Ocorrencia, EstadoEnum
+from ocorrencia import Ocorrencia, EstadoEnum, LimiteOcorrenciasPorFuncionarioAtingidoException
 import unittest
 
 class TestesTDD(unittest.TestCase):
@@ -52,6 +52,16 @@ class TestesTDD(unittest.TestCase):
         projeto.atribuir_funcionario_a_ocorrencia(funcionario, ocorrencia)
 
         return empresa, funcionario, projeto, ocorrencia
+    
+    def criar_dez_ocorrencias(self):
+        empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
+        ocorrencias = []
+        for i in range(10):
+            nova_ocorrencia = projeto.cria_ocorrencia("Ocorrencia " + str(i))
+            ocorrencias.append(nova_ocorrencia)
+            projeto.atribuir_funcionario_a_ocorrencia(funcionario, nova_ocorrencia)
+        
+        return empresa, funcionario, projeto, ocorrencias
     
     
     def criar_empresa(self):
@@ -151,6 +161,12 @@ class TestesTDD(unittest.TestCase):
         with self.assertRaises(Exception):
             ocorrencia.fechar()
 
+    def test_maximo_ocorrencias_por_funcionario(self):
+        empresa, funcionario, projeto, ocorrencias = self.criar_dez_ocorrencias()
+        nova_ocorrencia = projeto.cria_ocorrencia("Ocorrencia a mais")
+
+        with self.assertRaises(LimiteOcorrenciasPorFuncionarioAtingidoException):
+            projeto.atribuir_funcionario_a_ocorrencia(funcionario, nova_ocorrencia)
 
 if __name__ == '__main__':
     unittest.main()
