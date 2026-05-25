@@ -12,188 +12,188 @@ import unittest
 class TestesTDD(unittest.TestCase):
 
 
-    def criar_objetos(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        nome_funcionario = "Jorge"
-        funcionario = Funcionario(nome_funcionario)
-        nome_projeto = "Projeto 1"
-        projeto = Projeto(nome_projeto)
-        empresa.incluir_funcionario(funcionario)
-        empresa.incluir_projeto(projeto)
+    def criar_empresa_com_funcionario_e_projeto(self):
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        nome_jorge = "Jorge"
+        jorge = Funcionario(nome_jorge)
+        nome_projeto_1 = "Projeto 1"
+        projeto_1 = Projeto(nome_projeto_1)
+        empresa_a.incluir_funcionario(jorge)
+        empresa_a.incluir_projeto(projeto_1)
 
-        return empresa, funcionario, projeto
-    
-    def criar_objetos_incluindo_funcionario_em_projeto(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        nome_funcionario = "Jorge"
-        funcionario = Funcionario(nome_funcionario)
-        nome_projeto = "Projeto 1"
-        projeto = Projeto(nome_projeto)
-        empresa.incluir_funcionario(funcionario)
-        empresa.incluir_projeto(projeto)
-        empresa.incluir_funcionario_em_projeto(funcionario, projeto)
+        return empresa_a, jorge, projeto_1
 
-        return empresa, funcionario, projeto
-    
+    def criar_empresa_com_funcionario_alocado_em_projeto(self):
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        nome_jorge = "Jorge"
+        jorge = Funcionario(nome_jorge)
+        nome_projeto_1 = "Projeto 1"
+        projeto_1 = Projeto(nome_projeto_1)
+        empresa_a.incluir_funcionario(jorge)
+        empresa_a.incluir_projeto(projeto_1)
+        empresa_a.incluir_funcionario_em_projeto(jorge, projeto_1)
+
+        return empresa_a, jorge, projeto_1
+
     def criar_empresa(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        return empresa
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        return empresa_a
 
     # Criação de empresa
     def test_deve_criar_empresa(self):
-        nome = "Empresa A"
+        nome_empresa_a = "Empresa A"
 
-        empresa = Empresa(nome)
+        empresa_a = Empresa(nome_empresa_a)
 
-        self.assertEqual(empresa.nome, nome)
+        self.assertEqual(empresa_a.nome, nome_empresa_a)
 
     # Criação de funcionário
     def test_deve_criar_funcionario(self):
-        nome_funcionario = "Jorge"
+        nome_jorge = "Jorge"
 
-        funcionario = Funcionario(nome_funcionario)
+        jorge = Funcionario(nome_jorge)
 
-        self.assertEqual(funcionario.nome, nome_funcionario)
-    
+        self.assertEqual(jorge.nome, nome_jorge)
+
     # Inclusão de funcionário na empresa
     def test_deve_incluir_funcionario(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        nome_funcionario = "Jorge"
-        funcionario = Funcionario(nome_funcionario)
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        nome_jorge = "Jorge"
+        jorge = Funcionario(nome_jorge)
 
-        empresa.incluir_funcionario(funcionario)
+        empresa_a.incluir_funcionario(jorge)
 
-        self.assertEqual(empresa.funcionarios[0].nome, funcionario.nome)
+        self.assertEqual(empresa_a.funcionarios[0].nome, jorge.nome)
 
     # Criação de projeto
     def test_deve_criar_projeto(self):
-        nome_projeto = "Projeto 1"
+        nome_projeto_1 = "Projeto 1"
 
-        projeto = Projeto(nome_projeto)
+        projeto_1 = Projeto(nome_projeto_1)
 
-        self.assertEqual(projeto.nome, nome_projeto)
-    
+        self.assertEqual(projeto_1.nome, nome_projeto_1)
+
     # Inclusão de projeto na empresa
     def test_deve_incluir_projeto(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        nome_projeto = "Projeto 1"
-        projeto = Projeto(nome_projeto)
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        nome_projeto_1 = "Projeto 1"
+        projeto_1 = Projeto(nome_projeto_1)
 
-        empresa.incluir_projeto(projeto)
+        empresa_a.incluir_projeto(projeto_1)
 
-        self.assertEqual(empresa.projetos[0].nome, projeto.nome)
+        self.assertEqual(empresa_a.projetos[0].nome, projeto_1.nome)
 
     # Inclusão de funcionário em projeto
     def test_deve_incluir_funcionario_em_projeto(self):
-        empresa, funcionario, projeto = self.criar_objetos()
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_e_projeto()
 
-        empresa.incluir_funcionario_em_projeto(funcionario, projeto)
+        empresa_a.incluir_funcionario_em_projeto(jorge, projeto_1)
 
-        self.assertEqual(projeto.funcionarios[0].nome, funcionario.nome)
-        self.assertEqual(empresa.projetos[0].funcionarios[0].nome, funcionario.nome)
+        self.assertEqual(projeto_1.funcionarios[0].nome, jorge.nome)
+        self.assertEqual(empresa_a.projetos[0].funcionarios[0].nome, jorge.nome)
 
     # Inclusão de funcionário fora da empresa em projeto
     def test_nao_deve_incluir_funcionario_fora_da_empresa_em_projeto(self):
-        empresa, funcionario, projeto = self.criar_objetos()
-        nome_funcionario2 = "Pedro"
-        funcionario2 = Funcionario(nome_funcionario2)
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_e_projeto()
+        nome_pedro = "Pedro"
+        pedro = Funcionario(nome_pedro)
 
-        empresa.incluir_funcionario_em_projeto(funcionario2, projeto)
+        empresa_a.incluir_funcionario_em_projeto(pedro, projeto_1)
 
-        self.assertTrue(len(projeto.funcionarios) == 0)
-        self.assertTrue(len(empresa.projetos[0].funcionarios) == 0)
+        self.assertTrue(len(projeto_1.funcionarios) == 0)
+        self.assertTrue(len(empresa_a.projetos[0].funcionarios) == 0)
 
     # Inclusão de funcionário fora da empresa em projeto
     def test_nao_deve_incluir_funcionario_em_projeto_fora_da_empresa(self):
-        empresa, funcionario, projeto = self.criar_objetos()
-        nome_projeto2 = "projeto 2"
-        projeto2 = Projeto(nome_projeto2)
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_e_projeto()
+        nome_projeto_2 = "projeto 2"
+        projeto_2 = Projeto(nome_projeto_2)
 
-        empresa.incluir_funcionario_em_projeto(funcionario, projeto2)
+        empresa_a.incluir_funcionario_em_projeto(jorge, projeto_2)
 
-        self.assertTrue(len(projeto2.funcionarios) == 0)
-        self.assertTrue(projeto2 not in empresa.projetos)
+        self.assertTrue(len(projeto_2.funcionarios) == 0)
+        self.assertTrue(projeto_2 not in empresa_a.projetos)
 
     # Inclusão de vários funcionários na empresa
     def test_deve_incluir_varios_funcionarios_na_empresa(self):
-        empresa = self.criar_empresa()
-        nome_funcionario1 = "Pedro"
-        funcionario1 = Funcionario(nome_funcionario1)
-        nome_funcionario2 = "João"
-        funcionario2 = Funcionario(nome_funcionario2)
-        nome_funcionario3 = "Carlos"
-        funcionario3 = Funcionario(nome_funcionario3)
-        funcionarios = [funcionario1, funcionario2, funcionario3]
+        empresa_a = self.criar_empresa()
+        nome_pedro = "Pedro"
+        pedro = Funcionario(nome_pedro)
+        nome_joao = "João"
+        joao = Funcionario(nome_joao)
+        nome_carlos = "Carlos"
+        carlos = Funcionario(nome_carlos)
+        funcionarios = [pedro, joao, carlos]
 
-        empresa.incluir_funcionarios(funcionarios)
+        empresa_a.incluir_funcionarios(funcionarios)
 
-        self.assertTrue(len(empresa.funcionarios) == 3)
-        self.assertTrue(funcionario1 in empresa.funcionarios)
-        self.assertTrue(funcionario2 in empresa.funcionarios)
-        self.assertTrue(funcionario3 in empresa.funcionarios)
+        self.assertTrue(len(empresa_a.funcionarios) == 3)
+        self.assertTrue(pedro in empresa_a.funcionarios)
+        self.assertTrue(joao in empresa_a.funcionarios)
+        self.assertTrue(carlos in empresa_a.funcionarios)
 
     # Inclusão de vários projetos na empresa
     def test_deve_incluir_varios_projetos_na_empresa(self):
-        empresa = self.criar_empresa()
-        nome_projeto1 = "Pedro"
-        projeto1 = Projeto(nome_projeto1)
-        nome_projeto2 = "João"
-        projeto2 = Projeto(nome_projeto2)
-        nome_projeto3 = "Carlos"
-        projeto3 = Projeto(nome_projeto3)
-        projetos = [projeto1, projeto2, projeto3]
+        empresa_a = self.criar_empresa()
+        nome_projeto_pedro = "Pedro"
+        projeto_pedro = Projeto(nome_projeto_pedro)
+        nome_projeto_joao = "João"
+        projeto_joao = Projeto(nome_projeto_joao)
+        nome_projeto_carlos = "Carlos"
+        projeto_carlos = Projeto(nome_projeto_carlos)
+        projetos = [projeto_pedro, projeto_joao, projeto_carlos]
 
-        empresa.incluir_projetos(projetos)
+        empresa_a.incluir_projetos(projetos)
 
-        self.assertTrue(len(empresa.projetos) == 3)
-        self.assertTrue(projeto1 in empresa.projetos)
-        self.assertTrue(projeto2 in empresa.projetos)
-        self.assertTrue(projeto3 in empresa.projetos)
+        self.assertTrue(len(empresa_a.projetos) == 3)
+        self.assertTrue(projeto_pedro in empresa_a.projetos)
+        self.assertTrue(projeto_joao in empresa_a.projetos)
+        self.assertTrue(projeto_carlos in empresa_a.projetos)
 
     # Inclusão de funcionário em vários projetos
     def test_deve_incluir_funcionario_em_varios_projetos(self):
-        empresa, funcionario, projeto = self.criar_objetos()
-        nome_projeto2 = "projeto 2"
-        projeto2 = Projeto(nome_projeto2)
-        empresa.incluir_projeto(projeto2)
-        projetos = [projeto, projeto2]
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_e_projeto()
+        nome_projeto_2 = "projeto 2"
+        projeto_2 = Projeto(nome_projeto_2)
+        empresa_a.incluir_projeto(projeto_2)
+        projetos = [projeto_1, projeto_2]
 
-        empresa.incluir_funcionario_em_projetos(funcionario, projetos)
+        empresa_a.incluir_funcionario_em_projetos(jorge, projetos)
 
-        self.assertTrue(funcionario in projeto.funcionarios)
-        self.assertTrue(funcionario in projeto2.funcionarios)
+        self.assertTrue(jorge in projeto_1.funcionarios)
+        self.assertTrue(jorge in projeto_2.funcionarios)
 
     # Inclusão de funcionário repetido na empresa
     def test_nao_deve_incluir_funcionario_repetido(self):
-        empresa, funcionario, projeto = self.criar_objetos()
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_e_projeto()
 
-        empresa.incluir_funcionario(funcionario)
-        
-        self.assertTrue(len(empresa.funcionarios) == 1)
-        self.assertTrue(funcionario in empresa.funcionarios)
+        empresa_a.incluir_funcionario(jorge)
+
+        self.assertTrue(len(empresa_a.funcionarios) == 1)
+        self.assertTrue(jorge in empresa_a.funcionarios)
 
     # Inclusão de projeto repetido na empresa
     def test_nao_deve_incluir_projeto_repetido(self):
-        empresa, funcionario, projeto = self.criar_objetos()
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_e_projeto()
 
-        empresa.incluir_projeto(projeto)
-        
-        self.assertTrue(len(empresa.projetos) == 1)
-        self.assertTrue(projeto in empresa.projetos)
+        empresa_a.incluir_projeto(projeto_1)
+
+        self.assertTrue(len(empresa_a.projetos) == 1)
+        self.assertTrue(projeto_1 in empresa_a.projetos)
 
     # Inclusão de funcionário repetido em projeto
     def test_nao_deve_incluir_funcionario_repetido_em_projeto(self):
-        empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_alocado_em_projeto()
 
-        empresa.incluir_funcionario_em_projeto(funcionario, projeto)
-        
-        self.assertTrue(len(projeto.funcionarios) == 1)
-        self.assertTrue(funcionario in projeto.funcionarios)
+        empresa_a.incluir_funcionario_em_projeto(jorge, projeto_1)
+
+        self.assertTrue(len(projeto_1.funcionarios) == 1)
+        self.assertTrue(jorge in projeto_1.funcionarios)
 
 if __name__ == '__main__':
     unittest.main()

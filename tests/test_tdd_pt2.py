@@ -13,160 +13,160 @@ import unittest
 class TestesTDD(unittest.TestCase):
 
 
-    def criar_objetos(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        nome_funcionario = "Jorge"
-        funcionario = Funcionario(nome_funcionario)
-        nome_projeto = "Projeto 1"
-        projeto = Projeto(nome_projeto)
-        empresa.incluir_funcionario(funcionario)
-        empresa.incluir_projeto(projeto)
+    def criar_empresa_com_funcionario_e_projeto(self):
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        nome_jorge = "Jorge"
+        jorge = Funcionario(nome_jorge)
+        nome_projeto_1 = "Projeto 1"
+        projeto_1 = Projeto(nome_projeto_1)
+        empresa_a.incluir_funcionario(jorge)
+        empresa_a.incluir_projeto(projeto_1)
 
-        return empresa, funcionario, projeto
-    
-    def criar_objetos_incluindo_funcionario_em_projeto(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        nome_funcionario = "Jorge"
-        funcionario = Funcionario(nome_funcionario)
-        nome_projeto = "Projeto 1"
-        projeto = Projeto(nome_projeto)
-        empresa.incluir_funcionario(funcionario)
-        empresa.incluir_projeto(projeto)
-        empresa.incluir_funcionario_em_projeto(funcionario, projeto)
+        return empresa_a, jorge, projeto_1
 
-        return empresa, funcionario, projeto
-    
-    def criar_objetos_ocorrencia(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        nome_funcionario = "Jorge"
-        funcionario = Funcionario(nome_funcionario)
-        nome_projeto = "Projeto 1"
-        projeto = Projeto(nome_projeto)
-        empresa.incluir_funcionario(funcionario)
-        empresa.incluir_projeto(projeto)
-        empresa.incluir_funcionario_em_projeto(funcionario, projeto)
-        ocorrencia = projeto.cria_ocorrencia("bugTeste")
-        projeto.atribuir_funcionario_a_ocorrencia(funcionario, ocorrencia)
+    def criar_empresa_com_funcionario_alocado_em_projeto(self):
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        nome_jorge = "Jorge"
+        jorge = Funcionario(nome_jorge)
+        nome_projeto_1 = "Projeto 1"
+        projeto_1 = Projeto(nome_projeto_1)
+        empresa_a.incluir_funcionario(jorge)
+        empresa_a.incluir_projeto(projeto_1)
+        empresa_a.incluir_funcionario_em_projeto(jorge, projeto_1)
 
-        return empresa, funcionario, projeto, ocorrencia
-    
-    def criar_dez_ocorrencias(self):
-        empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
+        return empresa_a, jorge, projeto_1
+
+    def criar_ocorrencia_com_funcionario_atribuido(self):
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        nome_jorge = "Jorge"
+        jorge = Funcionario(nome_jorge)
+        nome_projeto_1 = "Projeto 1"
+        projeto_1 = Projeto(nome_projeto_1)
+        empresa_a.incluir_funcionario(jorge)
+        empresa_a.incluir_projeto(projeto_1)
+        empresa_a.incluir_funcionario_em_projeto(jorge, projeto_1)
+        ocorrencia_bug = projeto_1.cria_ocorrencia("bugTeste")
+        projeto_1.atribuir_funcionario_a_ocorrencia(jorge, ocorrencia_bug)
+
+        return empresa_a, jorge, projeto_1, ocorrencia_bug
+
+    def criar_dez_ocorrencias_atribuidas_ao_funcionario(self):
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_alocado_em_projeto()
         ocorrencias = []
         for i in range(10):
-            nova_ocorrencia = projeto.cria_ocorrencia("Ocorrencia " + str(i))
+            nova_ocorrencia = projeto_1.cria_ocorrencia("Ocorrencia " + str(i))
             ocorrencias.append(nova_ocorrencia)
-            projeto.atribuir_funcionario_a_ocorrencia(funcionario, nova_ocorrencia)
-        
-        return empresa, funcionario, projeto, ocorrencias
-    
-    
+            projeto_1.atribuir_funcionario_a_ocorrencia(jorge, nova_ocorrencia)
+
+        return empresa_a, jorge, projeto_1, ocorrencias
+
+
     def criar_empresa(self):
-        nome = "Empresa A"
-        empresa = Empresa(nome)
-        return empresa
+        nome_empresa_a = "Empresa A"
+        empresa_a = Empresa(nome_empresa_a)
+        return empresa_a
 
     # Criação de ocorrencia
     def test_cria_ocorrencia(self):
-        empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_alocado_em_projeto()
 
-        ocorrencia = projeto.cria_ocorrencia("bugTeste")
+        ocorrencia_bug = projeto_1.cria_ocorrencia("bugTeste")
 
-        self.assertTrue( ocorrencia in projeto.ocorrencias)
-    
-    
+        self.assertTrue(ocorrencia_bug in projeto_1.ocorrencias)
+
+
     # Atribui funcionario a ocorrência
     def test_atribui_funcionario_ocorrencia(self):
-        empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
-        ocorrencia = projeto.cria_ocorrencia("bugTeste")
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_alocado_em_projeto()
+        ocorrencia_bug = projeto_1.cria_ocorrencia("bugTeste")
 
-        ocorrencia.atribuir_funcionario(funcionario)
+        ocorrencia_bug.atribuir_funcionario(jorge)
 
-        self.assertEqual(ocorrencia.funcionario, funcionario)
+        self.assertEqual(ocorrencia_bug.funcionario, jorge)
 
     def test_atribui_funcionario_fora_do_projeto_em_ocorrencia(self):
-        empresa, funcionario, projeto = self.criar_objetos()
-        ocorrencia = projeto.cria_ocorrencia("bugTeste")
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_e_projeto()
+        ocorrencia_bug = projeto_1.cria_ocorrencia("bugTeste")
 
-        projeto.atribuir_funcionario_a_ocorrencia(funcionario, ocorrencia)
+        projeto_1.atribuir_funcionario_a_ocorrencia(jorge, ocorrencia_bug)
 
-        self.assertNotEqual(ocorrencia.funcionario, funcionario)
+        self.assertNotEqual(ocorrencia_bug.funcionario, jorge)
 
     def test_ultimo_funcionario_ocorrencia(self):
-        empresa, funcionario, projeto = self.criar_objetos_incluindo_funcionario_em_projeto()
-        funcionarioPedro = Funcionario("Pedro")
-        empresa.incluir_funcionario(funcionarioPedro)
-        projeto.incluir_funcionario(funcionarioPedro)
-        ocorrencia = projeto.cria_ocorrencia("bugTeste")
-        ocorrencia.atribuir_funcionario(funcionario)
-        
-        ocorrencia.atribuir_funcionario(funcionarioPedro)
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_alocado_em_projeto()
+        pedro = Funcionario("Pedro")
+        empresa_a.incluir_funcionario(pedro)
+        projeto_1.incluir_funcionario(pedro)
+        ocorrencia_bug = projeto_1.cria_ocorrencia("bugTeste")
+        ocorrencia_bug.atribuir_funcionario(jorge)
 
-        self.assertEqual(ocorrencia.funcionario, funcionarioPedro)
+        ocorrencia_bug.atribuir_funcionario(pedro)
+
+        self.assertEqual(ocorrencia_bug.funcionario, pedro)
 
     def test_identificador_unico(self):
-        empresa, funcionario, projeto = self.criar_objetos()
-        ocorrenciaBug = projeto.cria_ocorrencia("bugTeste")
-        ocorrenciaTarefa = projeto.cria_ocorrencia("bugTeste")
+        empresa_a, jorge, projeto_1 = self.criar_empresa_com_funcionario_e_projeto()
+        primeira_ocorrencia_bug = projeto_1.cria_ocorrencia("bugTeste")
+        segunda_ocorrencia_bug = projeto_1.cria_ocorrencia("bugTeste")
 
-        self.assertNotEqual(ocorrenciaBug.id, ocorrenciaTarefa.id)
+        self.assertNotEqual(primeira_ocorrencia_bug.id, segunda_ocorrencia_bug.id)
 
     def test_ocorrencia_aberta(self):
-        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
+        empresa_a, jorge, projeto_1, ocorrencia_bug = self.criar_ocorrencia_com_funcionario_atribuido()
 
-        self.assertTrue(ocorrencia.estado == EstadoEnum.ABERTO)
+        self.assertTrue(ocorrencia_bug.estado == EstadoEnum.ABERTO)
 
     def test_concluir_ocorrencia(self):
-        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
+        empresa_a, jorge, projeto_1, ocorrencia_bug = self.criar_ocorrencia_com_funcionario_atribuido()
 
-        ocorrencia.fechar()
+        ocorrencia_bug.fechar()
 
-        self.assertTrue(ocorrencia.estado == EstadoEnum.FECHADO)
+        self.assertTrue(ocorrencia_bug.estado == EstadoEnum.FECHADO)
 
     def test_altera_prioridade_ocorrencia_aberta(self):
-        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
+        empresa_a, jorge, projeto_1, ocorrencia_bug = self.criar_ocorrencia_com_funcionario_atribuido()
         nova_prioridade = 3
 
-        ocorrencia.mudar_prioridade(nova_prioridade)
+        ocorrencia_bug.mudar_prioridade(nova_prioridade)
 
-        self.assertEqual(ocorrencia.prioridade, nova_prioridade)
+        self.assertEqual(ocorrencia_bug.prioridade, nova_prioridade)
 
     def test_altera_prioridade_ocorrencia_fechada(self):
-        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
+        empresa_a, jorge, projeto_1, ocorrencia_bug = self.criar_ocorrencia_com_funcionario_atribuido()
         nova_prioridade = 3
-        ocorrencia.fechar()
+        ocorrencia_bug.fechar()
 
-        ocorrencia.mudar_prioridade(nova_prioridade)
+        ocorrencia_bug.mudar_prioridade(nova_prioridade)
 
-        self.assertNotEqual(ocorrencia.prioridade, nova_prioridade)
+        self.assertNotEqual(ocorrencia_bug.prioridade, nova_prioridade)
 
     def test_altera_funcionario_ocorrencia_fechada(self):
-        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
-        funcionarioPedro = Funcionario("Pedro")
-        empresa.incluir_funcionario(funcionarioPedro)
-        empresa.incluir_funcionario_em_projeto(funcionarioPedro, projeto)
-        ocorrencia.fechar()
+        empresa_a, jorge, projeto_1, ocorrencia_bug = self.criar_ocorrencia_com_funcionario_atribuido()
+        pedro = Funcionario("Pedro")
+        empresa_a.incluir_funcionario(pedro)
+        empresa_a.incluir_funcionario_em_projeto(pedro, projeto_1)
+        ocorrencia_bug.fechar()
 
-        projeto.atribuir_funcionario_a_ocorrencia(funcionarioPedro, ocorrencia)
+        projeto_1.atribuir_funcionario_a_ocorrencia(pedro, ocorrencia_bug)
 
-        self.assertNotEqual(ocorrencia.funcionario, funcionarioPedro)
+        self.assertNotEqual(ocorrencia_bug.funcionario, pedro)
 
     def test_concluir_ocorrencia_ja_fechada(self):
-        empresa, funcionario, projeto, ocorrencia = self.criar_objetos_ocorrencia()
-        ocorrencia.fechar()
+        empresa_a, jorge, projeto_1, ocorrencia_bug = self.criar_ocorrencia_com_funcionario_atribuido()
+        ocorrencia_bug.fechar()
 
         with self.assertRaises(Exception):
-            ocorrencia.fechar()
+            ocorrencia_bug.fechar()
 
     def test_maximo_ocorrencias_por_funcionario(self):
-        empresa, funcionario, projeto, ocorrencias = self.criar_dez_ocorrencias()
-        nova_ocorrencia = projeto.cria_ocorrencia("Ocorrencia a mais")
+        empresa_a, jorge, projeto_1, ocorrencias = self.criar_dez_ocorrencias_atribuidas_ao_funcionario()
+        nova_ocorrencia = projeto_1.cria_ocorrencia("Ocorrencia a mais")
 
         with self.assertRaises(LimiteOcorrenciasPorFuncionarioAtingidoException):
-            projeto.atribuir_funcionario_a_ocorrencia(funcionario, nova_ocorrencia)
+            projeto_1.atribuir_funcionario_a_ocorrencia(jorge, nova_ocorrencia)
 
 if __name__ == '__main__':
     unittest.main()
